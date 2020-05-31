@@ -1,80 +1,43 @@
-<?php 
-	
-	$errors = "";
-
-	// connect to database
-	$db = mysqli_connect("localhost", "root", "", "todo");
-
-	// insert a quote if submit button is clicked
-	if (isset($_POST['submit'])) {
-
-		if (empty($_POST['task'])) {
-			$errors = "You must fill in the task";
-		}else{
-			$task = $_POST['task'];
-			$query = "INSERT INTO tasks (task) VALUES ('$task')";
-			mysqli_query($db, $query);
-			header('location: index.php');
-		}
-	}	
-
-	// delete task
-	if (isset($_GET['del_task'])) {
-		$id = $_GET['del_task'];
-
-		mysqli_query($db, "DELETE FROM tasks WHERE id=".$id);
-		header('location: index.php');
-	}
-
-	// select all tasks if page is visited or refreshed
-	$tasks = mysqli_query($db, "SELECT * FROM tasks");
+<?php
+    session_start();
+    include("./App/Database.php");
+    $db=new App\Database();
+    $id=$_SESSION["user"];
+    if(isset($_SESSION["user"])){
+        $result=$db->sql("select * from todolist where user_id='$id'");
+        $dd=$db->sql("select * from users where id_U='$id'");
+    
 
 ?>
+
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<title>ToDo List Application PHP and MySQL</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <title>Todolist</title>
 </head>
-
 <body>
-
-	<div class="heading">
-		<h2 style="font-style: 'Hervetica';">ToDo List Application PHP and MySQL database</h2>
-	</div>
-
-
-	<form method="post" action="index.php" class="input_form">
-		<?php if (isset($errors)) { ?>
-			<p><?php echo $errors; ?></p>
-		<?php } ?>
-		<input type="text" name="task" class="task_input">
-		<button type="submit" name="submit" id="add_btn" class="add_btn">Add Task</button>
-	</form>
-
-
-	<table>
-		<thead>
-			<tr>
-				<th>N</th>
-				<th>Tasks</th>
-				<th style="width: 60px;">Action</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<?php $i = 1; while ($row = mysqli_fetch_array($tasks)) { ?>
-				<tr>
-					<td> <?php echo $i; ?> </td>
-					<td class="task"> <?php echo $row['task']; ?> </td>
-					<td class="delete"> 
-						<a href="index.php?del_task=<?php echo $row['id'] ?>">x</a> 
-					</td>
-				</tr>
-			<?php $i++; } ?>	
-		</tbody>
-	</table>
-
+    <?php include("./nav/nav.php"); ?>
+    <h4 class="tl">My Tasks</h4>
+    <?php foreach($result as $name){
+        $_SESSION["name"]=$name["name"];
+        ?>
+        <div class="card-body vv">
+            <h5 class="card-title name"><a href="todolist.php?tl=<?php echo $name['id_L'] ?>" ><?php echo $name["name"];  ?></a></h5>
+            <a href="delete.php?dll=<?php echo $name['id_L'] ?>">Delete</a>
+        </div>
+    <?php } ?>
+    <?php 
+    }else{
+        header("location: login.php");
+    }
+    ?>
 </body>
 </html>
