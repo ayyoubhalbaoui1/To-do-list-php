@@ -1,0 +1,145 @@
+.container {
+    margin-top: 150px;
+}
+
+.row .vv {
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    color: #666;
+    display: inline-block;
+    width: 10%;
+}
+
+.fa-trash,
+.fa-edit {
+    width: 50px;
+    height: 20px;
+    font-size: 25px;
+    color: #156e8c;
+    cursor: pointer;
+}
+
+.fa-trash:hover,
+.fa-edit:hover {
+    color: red;
+}
+
+.row h2 {
+    margin: 0;
+    background: #2980b9;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 10px 433px;
+    font-weight: normal;
+}
+
+.row ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.row li {
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    color: #666;
+    display: inline-block;
+    width: 90%;
+}
+
+.row li:nth-child(2n) {
+    background: #f7f7f7;
+}
+
+.row input[type="text"] {
+    font-size: 18px;
+    background-color: #f7f7f7;
+    width: 100%;
+    padding: 13px 13px 13px 20px;
+    box-sizing: border-box;
+    color: #2980b9;
+    border: 3px solid rgba(0, 0, 0, 0);
+}
+
+.row input[type="text"]:focus {
+    background: #fff;
+    border: 3px solid #2980b9;
+    outline: none;
+}
+
+.row .completed {
+    color: gray;
+    text-decoration: line-through;
+}
+
+.row .fa-plus {
+    float: right;
+}
+
+.row {
+    /*width: 844px;*/
+    /*background: #f7f7f7;*/
+    margin: 100px auto;
+    border: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.bns {
+    font-size: 20px;
+    margin-left: 950px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 800px) {
+    .row li {
+        width: 100%;
+    }
+    .row .vv {
+        width: 105px;
+    }
+    .row h2 {
+        margin-top: 5px;
+    }
+    .bns {
+        margin-top: 98px;
+        margin-bottom: 10px;
+        margin: auto;
+        display: block;
+    }
+}
+
+body {
+    background-image: url("https://cdn.pixabay.com/photo/2019/09/24/16/05/storm-4501645_1280.jpg");
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+    /* Center the image */
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
+    padding-top: 50px;
+}
+
+.login-form {
+    background: #1a11117a;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 100px;
+    border-radius: 50px;
+    color: white;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.login-heading {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.container {
+    background: #09090a4f;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.38);
+}
+
+.btn-primary {
+    width: 100%;
+}

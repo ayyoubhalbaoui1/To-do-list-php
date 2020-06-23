@@ -1,58 +1,87 @@
-<?php 
-    session_start();
-    include("./App/Database.php");
-
-    $db=new App\Database();
-    if(isset($_POST["submit"])){
-        $username=$_POST["username"];
-        $password=$_POST["password"];
-        $db->login($username,$password);
-        $_SESSION["user"]=$db->user;
-    }
-    require("form.php");
-    $form=new form();
-    
-?>
 <!DOCTYPE html>
 <html lang="en">
+<?php
+  
+
+   
+    include "checklogin.php";
+    include "checksignup.php";
+
+  
+
+?>
+
+
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="styles/login.css">
 </head>
-<body id="login">
-    <section class="log">
-        <div class="frm" >
-            <form method="POST"  class="log">
-            <div class="form-group">
-                <?php 
-                    echo $form->label("exampleInputEmail1","Username");
-                ?>
-                <span><?php echo $db->validation(); ?></span>
-                <?php
-                    echo $form->inputs("text","username","form-control","exampleInputEmail1");
-                ?>
-            </div>
-            <div class="form-group">
-                <?php 
-                    echo $form->label("exampleInputPassword1","Password");
-                    echo $form->inputs("password","password","form-control","exampleInputPassword1");
-                ?>
-            </div>
-            <center>
-            <?php
-                echo $form->button("submit","btn btn-primary btnb","Sign In");
-            ?>
-            <div class="register"><a href="inscription.php">Create Account</a></div>
-            </center>
-            </form>
-        </div>
-    </section>
+
+<body>
+                     
+	<div class="container" id="container">
+		<div class="form-container sign-up-container">
+			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/from-data"   >
+				<h1>Create Account</h1>
+
+			     <input type="text" name="first_name" placeholder="firstname.." />
+                 <input type="text" name="last_name" placeholder="lastname.." / >
+                <input type="text" name="user_name"   placeholder="username.." />
+                <input type="email" name="email"   placeholder="email..." />
+                <input type="password" name="password" placeholder="Password..." />
+                <input type="file" name="photo" placeholder="photo" />
+                
+				<button  type="submit" name="register">Sign Up</button>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">   
+			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+				<!-- <h1>Sign in</h1>
+                <span style="color: red"><?php echo $ms;?></span> -->
+                <!--  <span><?php echo $userErr;   ?></span> -->
+				<input type="text" name="user_name"   placeholder="username" />
+				 <!--  <span><?php echo $passwordErr;   ?></span> -->
+				<input type="password" name="password" placeholder="Password" />
+				<a href="#">Forgot your password?</a>
+				<button type="submit" name="login">Sign In</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Welcome Back!</h1>
+					<p>To keep connected with us please login with your personal info</p>
+					<button class="ghost" id="signIn">Sign In</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Hello, Friend!</h1>
+					<p>Enter your personal details and start journey with us</p>
+					<button class="ghost" id="signUp">Sign Up</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+		const signUpButton = document.getElementById('signUp');
+		const signInButton = document.getElementById('signIn');
+		const container = document.getElementById('container');
+
+		signUpButton.addEventListener('click', () => {
+			container.classList.add("right-panel-active");
+		});
+
+		signInButton.addEventListener('click', () => {
+			container.classList.remove("right-panel-active");
+		});
+
+	</script>
 </body>
 
 </html>
